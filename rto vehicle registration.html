@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTO - Vehicle Registration & Driving License Management System</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+                <div class="bg-blue-700 p-2.5 rounded-lg text-xl">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide">SARATHI-VAHAN PORTAL</h1>
+                    <p class="text-xs text-blue-300">Vehicle Registration & License Management System</p>
+                </div>
+            </div>
+            <nav class="mt-4 sm:mt-0 flex flex-wrap gap-2 justify-center">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-4 py-2 rounded-lg bg-blue-800 font-medium text-sm transition hover:bg-blue-700">Dashboard</button>
+                <button onclick="switchTab('vehicle')" id="nav-vehicle" class="px-4 py-2 rounded-lg hover:bg-blue-800 font-medium text-sm transition">Vehicle Reg</button>
+                <button onclick="switchTab('license')" id="nav-license" class="px-4 py-2 rounded-lg hover:bg-blue-800 font-medium text-sm transition">Driving License</button>
+                <button onclick="switchTab('track')" id="nav-track" class="px-4 py-2 rounded-lg hover:bg-blue-800 font-medium text-sm transition">Track Status</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
+
+        <!-- DASHBOARD TAB -->
+        <section id="tab-dashboard" class="space-y-6">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-2xl p-8 shadow-lg">
+                <h2 class="text-3xl font-bold mb-3">Welcome to Online RTO Services</h2>
+                <p class="text-blue-100 max-w-2xl text-sm sm:text-base mb-6">Streamline your vehicle registration, driving license applications, slot bookings, document verifications, and fee payments instantly from one secure platform.</p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="switchTab('vehicle')" class="bg-white text-blue-700 font-semibold px-6 py-3 rounded-xl shadow hover:bg-blue-50 transition">Register a Vehicle</button>
+                    <button onclick="switchTab('license')" class="bg-blue-800 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-blue-900 border border-blue-500 transition">Apply for License</button>
+                </div>
+            </div>
+
+            <!-- Quick Stats / Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                    <div class="bg-blue-100 text-blue-600 p-4 rounded-xl text-2xl"><i class="fa-solid fa-car"></i></div>
+                    <div>
+                        <p class="text-slate-500 text-sm font-medium">Vehicle Services</p>
+                        <h3 class="text-xl font-bold text-slate-800">New & Transfer Reg</h3>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                    <div class="bg-emerald-100 text-emerald-600 p-4 rounded-xl text-2xl"><i class="fa-solid fa-id-badge"></i></div>
+                    <div>
+                        <p class="text-slate-500 text-sm font-medium">License Services</p>
+                        <h3 class="text-xl font-bold text-slate-800">Learner & Permanent</h3>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                    <div class="bg-amber-100 text-amber-600 p-4 rounded-xl text-2xl"><i class="fa-solid fa-file-shield"></i></div>
+                    <div>
+                        <p class="text-slate-500 text-sm font-medium">Verification</p>
+                        <h3 class="text-xl font-bold text-slate-800">Instant Status Tracking</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VEHICLE REGISTRATION TAB -->
+        <section id="tab-vehicle" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">New Vehicle Registration</h2>
+                <p class="text-slate-500 text-sm mb-6">Fill in vehicle and owner particulars for registration certificate (RC).</p>
+
+                <form id="vehicleForm" onsubmit="handleVehicleSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Owner Full Name</label>
+                            <input type="text" id="v_owner" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Rahul Sharma">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Mobile Number</label>
+                            <input type="tel" id="v_phone" required pattern="[0-9]{10}" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="10-digit mobile number">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Vehicle Make & Model</label>
+                            <input type="text" id="v_model" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Honda City / Hyundai Creta">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Fuel Type</label>
+                            <select id="v_fuel" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric</option>
+                                <option value="CNG">CNG</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Vehicle Chassis Number</label>
+                        <input type="text" id="v_chassis" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="17-character alphanumeric chassis number">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Upload Documents (ID & Invoice)</label>
+                        <input type="file" id="v_docs" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition shadow">Proceed to Payment & Register</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- DRIVING LICENSE TAB -->
+        <section id="tab-license" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Driving License & Test Slot Booking</h2>
+                <p class="text-slate-500 text-sm mb-6">Apply for Learner/Permanent License and pick your examination slot.</p>
+
+                <form id="licenseForm" onsubmit="handleLicenseSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Full Name (as per ID)</label>
+                            <input type="text" id="l_name" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Priya Verma">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+                            <input type="date" id="l_dob" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">License Type</label>
+                            <select id="l_type" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                                <option value="Learner License (LL)">Learner License (LL)</option>
+                                <option value="Permanent Driving License (DL)">Permanent Driving License (DL)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Preferred Test Slot Date & Time</label>
+                            <input type="datetime-local" id="l_slot" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Upload Address Proof & Age Proof</label>
+                        <input type="file" id="l_docs" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition shadow">Book Slot & Pay Fees</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- TRACK STATUS TAB -->
+        <section id="tab-track" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-slate-800 mb-1">Track Application Status</h2>
+                <p class="text-slate-500 text-sm mb-6">Enter your unique Application ID to verify document status and approval progress.</p>
+
+                <div class="flex gap-2">
+                    <input type="text" id="trackInput" placeholder="Enter Application ID (e.g., RTO-VEH-1234)" class="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none uppercase font-mono text-sm">
+                    <button onclick="trackApplication()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Search</button>
+                </div>
+
+                <div id="trackResult" class="mt-6 hidden border rounded-xl p-5 bg-slate-50">
+                    <!-- Dynamic tracking info injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PAYMENT MODAL SIMULATION -->
+    <div id="paymentModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-shield-halved text-emerald-600 mr-2"></i>Secure RTO Payment Gateway</h3>
+                <button onclick="closePaymentModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-xl text-sm space-y-1
+            
